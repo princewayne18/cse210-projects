@@ -44,17 +44,27 @@ public class Journal
     }
     public void LoadFromCsv(string file)
     {
-        string[] lines = System.IO.File.ReadAllLines(file);
+        if (!file.EndsWith(".csv"))
+        {
+            file += ".csv";
+        }
+
+        _entries.Clear();
+
+        string[] lines = File.ReadAllLines(file);
 
         foreach (string line in lines)
         {
             string[] parts = line.Split(",");
 
-            string date = parts[0];
-            string prompt = parts[1];
-            string response = parts[2];
+            string date = parts[0].Trim('"');
+            string prompt = parts[1].Trim('"');
+            string response = parts[2].Trim('"');
 
+            Entry entry = new Entry(prompt, response, date);
+            _entries.Add(entry);
         }
-
     }
+
+
 }
