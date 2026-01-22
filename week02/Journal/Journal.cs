@@ -26,32 +26,35 @@ public class Journal
     }
 
 
-    public void SaveToFile(string file)
+    public void SaveToCsv(string file)
     {
+        if (!file.EndsWith(".csv"))
+        {
+            file += ".csv";
+        }
         using (StreamWriter writer = new StreamWriter(file))
         {
             foreach (Entry entry in _entries)
             {
-                writer.WriteLine($"{entry._Date},{entry._Prompt},{entry._Response}");
+                writer.WriteLine($"\"{entry._Date}\",\"{entry._Prompt}\",\"{entry._Response}\"");
             }
 
         }
 
     }
-    public void LoadFromFile(string file)
+    public void LoadFromCsv(string file)
     {
-
-        _entries.Clear();
-
-        string[] lines = File.ReadAllLines(file);
+        string[] lines = System.IO.File.ReadAllLines(file);
 
         foreach (string line in lines)
         {
             string[] parts = line.Split(",");
 
-            Entry entry = new Entry(parts[1], parts[2], parts[0]);
+            string date = parts[0];
+            string prompt = parts[1];
+            string response = parts[2];
 
-            _entries.Add(entry);
         }
+
     }
 }

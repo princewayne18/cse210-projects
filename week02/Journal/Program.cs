@@ -45,13 +45,13 @@ class Program
             {
                 Console.Write("Enter filename to load: ");
                 string loadFile = Console.ReadLine();
-                journal.LoadFromFile(loadFile);
+                journal.LoadFromCsv(loadFile);
             }
             else if (choice == 4)
             {
                 Console.Write("Enter filename to save: ");
                 string saveFile = Console.ReadLine();
-                journal.SaveToFile(saveFile);
+                journal.SaveToCsv(saveFile);
             }
             else if (choice == 5)
             {
@@ -62,6 +62,7 @@ class Program
                 Console.WriteLine("Invalid choice. Please try again.");
             }
         } while (choice != 5);
+
 
     }
 }
